@@ -13,44 +13,46 @@ export default function App() {
 
   function calculator(){
     const splitNumbers = currentNumber.split(' ')
-    console.log(currentNumber)
-    console.log(splitNumbers)
-    const fistNumber = parseFloat(splitNumbers[0])
-    const lastNumber = parseFloat(splitNumbers[2])
-    const operator = splitNumbers[1]
+    let total = 0
+    let number = []
+    let operators = ['+']
+    
 
-    // Faz ação referente tecla pressionada
-    switch(operator){
-      case '+':
-        setCurrentNumber((fistNumber + lastNumber).toString())
-        return
-      case '-': 
-        setCurrentNumber((fistNumber - lastNumber).toString())
-        return
-      case 'x':
-        setCurrentNumber((fistNumber * lastNumber).toString())
-        return
-      case '/': 
-        setCurrentNumber((fistNumber / lastNumber).toString())
-        return
-      case '%':
-        setCurrentNumber((fistNumber/100 * lastNumber).toString())
+    for (let index = 0; index < splitNumbers.length; index+=2) {
+      if(index + 1 > splitNumbers.length){
+        break
+      }
+      number.push(Number(splitNumbers[index]))
+      operators.push(splitNumbers[index+1])
     }
+
+    for (let index = 0; index < number.length; index++) {
+      let firstNumber = number[index]
+      let operator = operators[index]
+      console.log(firstNumber,operator,total)
+      switch(operator){
+        case '+': 
+          total +=firstNumber
+          break
+        case '-': 
+          total -=firstNumber
+          break
+        case 'x':
+          total *=firstNumber
+          break
+        case '/': 
+          total /=firstNumber
+          break
+        /*case '%':
+          total = (firstNumber/100 * number[index + 1])*/
+      }  
+    }
+    setCurrentNumber(total)
+      
+    // Faz ação referente tecla pressionada
   }
 
   function handleInput(buttonPressed){
-    if(!(lastButton === buttonPressed)){
-      if(['+','-','x','/','%'].includes(buttonPressed)){
-        if(buttonPressed === '%'){
-          setCurrentNumber(currentNumber + " " + buttonPressed + "x ")
-        }else{
-          setCurrentNumber(currentNumber + " " + buttonPressed + " ")
-        }
-        
-        return
-      }
-    }
-    
     switch(buttonPressed){
       case 'DEL':
         setCurrentNumber(currentNumber.substring(0, (currentNumber.length - 1)))
@@ -67,8 +69,18 @@ export default function App() {
         return
     }
 
-    setCurrentNumber(currentNumber + buttonPressed)
+    if(['+','-','x','/','%'].includes(buttonPressed)){
+      if(buttonPressed === '%'){
+        setCurrentNumber(currentNumber + " " + buttonPressed + "x ")
+      }else{
+        setCurrentNumber(currentNumber + " " + buttonPressed + " ")
+      }
+      setLastButton(buttonPressed)
+      return
+    }
     setLastButton(buttonPressed)
+    setCurrentNumber(currentNumber + buttonPressed)
+    
   }
 
 

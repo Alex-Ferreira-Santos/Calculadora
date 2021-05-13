@@ -4,3 +4,5 @@
 * a opção de porcetagem está somando
 * a função de deletar está removendo 2 casa decimais de uma vez
 * o botão de +/- não faz nada quando clicado
+* operadores podem ser seguidos um pelo outro
+* só calculando os 2 primeiros numeros
