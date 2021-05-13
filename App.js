@@ -8,10 +8,13 @@ export default function App() {
 
   const [currentNumber, setCurrentNumber] = useState("")
   const [lastNumber, setLastNumber] = useState("")
+  const [lastButton, setLastButton] = useState("")
 
 
   function calculator(){
     const splitNumbers = currentNumber.split(' ')
+    console.log(currentNumber)
+    console.log(splitNumbers)
     const fistNumber = parseFloat(splitNumbers[0])
     const lastNumber = parseFloat(splitNumbers[2])
     const operator = splitNumbers[1]
@@ -30,18 +33,27 @@ export default function App() {
       case '/': 
         setCurrentNumber((fistNumber / lastNumber).toString())
         return
+      case '%':
+        setCurrentNumber((fistNumber/100 * lastNumber).toString())
     }
   }
 
   function handleInput(buttonPressed){
-    console.log(buttonPressed) // Mostra no Console a tecla pressionada
-    if(buttonPressed === '+' | buttonPressed === "-" | buttonPressed === "x" | buttonPressed === "/" ){
-      setCurrentNumber(currentNumber + " " + buttonPressed + " ")
-      return
+    if(!(lastButton === buttonPressed)){
+      if(['+','-','x','/','%'].includes(buttonPressed)){
+        if(buttonPressed === '%'){
+          setCurrentNumber(currentNumber + " " + buttonPressed + "x ")
+        }else{
+          setCurrentNumber(currentNumber + " " + buttonPressed + " ")
+        }
+        
+        return
+      }
     }
+    
     switch(buttonPressed){
       case 'DEL':
-        setCurrentNumber(currentNumber.substring(0, (currentNumber.length - 2)))
+        setCurrentNumber(currentNumber.substring(0, (currentNumber.length - 1)))
         return
       case 'LIMPAR': // Limpa todo o conteúdo
         setLastNumber("") 
@@ -56,6 +68,7 @@ export default function App() {
     }
 
     setCurrentNumber(currentNumber + buttonPressed)
+    setLastButton(buttonPressed)
   }
 
 
