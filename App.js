@@ -50,6 +50,20 @@ export default function App() {
         calculator()
         return
       case '+/-':
+        if(currentNumber.length != 0){
+          const splitNumbers = currentNumber.split(' ')
+          let expression = ''
+          if(splitNumbers.length-1 >= 0){
+            splitNumbers[splitNumbers.length - 1] = ` ${-splitNumbers[splitNumbers.length - 1]}` 
+          }else{
+            splitNumbers[splitNumbers.length - 1] = ` ${Math.abs(splitNumbers[splitNumbers.length - 1])}` 
+          }
+          console.log(splitNumbers)
+          for (let index = 0; index < splitNumbers.length; index++) {
+            expression+= splitNumbers[index]
+          }
+          setCurrentNumber(expression)
+        }
         return
     }
   
