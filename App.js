@@ -13,41 +13,28 @@ export default function App() {
 
   function calculator(){
     const splitNumbers = currentNumber.split(' ')
-    let total = 0
-    let number = []
-    let operators = ['+']
+    if(splitNumbers.findIndex(element => element === 'x') > 0){
+      let val = splitNumbers.indexOf('x')
+      splitNumbers[val] = '*'
+    }
+
+    if(splitNumbers.findIndex(element => element === '%x') > 0){
+      console.log(splitNumbers)
+      let val = splitNumbers.indexOf('%x')
+      let sum = Number(splitNumbers[val-1])/100 * Number(splitNumbers[val+1])
+      console.log(sum)
+      splitNumbers.splice(splitNumbers.indexOf('%x') - 1,3)
+      console.log(splitNumbers[val - 1] = `${sum}`)
+    }
+    console.log(splitNumbers)
+  
+    let total = ''
     
 
-    for (let index = 0; index < splitNumbers.length; index+=2) {
-      if(index + 1 > splitNumbers.length){
-        break
-      }
-      number.push(Number(splitNumbers[index]))
-      operators.push(splitNumbers[index+1])
+    for (let index = 0; index < splitNumbers.length; index++) {
+      total = `${total} ${splitNumbers[index]}`
     }
-
-    for (let index = 0; index < number.length; index++) {
-      let firstNumber = number[index]
-      let operator = operators[index]
-      console.log(firstNumber,operator,total)
-      switch(operator){
-        case '+': 
-          total +=firstNumber
-          break
-        case '-': 
-          total -=firstNumber
-          break
-        case 'x':
-          total *=firstNumber
-          break
-        case '/': 
-          total /=firstNumber
-          break
-        /*case '%':
-          total = (firstNumber/100 * number[index + 1])*/
-      }  
-    }
-    setCurrentNumber(total)
+    setCurrentNumber(eval(total))
       
     // Faz ação referente tecla pressionada
   }
