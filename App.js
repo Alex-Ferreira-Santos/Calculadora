@@ -19,14 +19,11 @@ export default function App() {
     }
 
     if(splitNumbers.findIndex(element => element === '%x') > 0){
-      console.log(splitNumbers)
       let val = splitNumbers.indexOf('%x')
       let sum = Number(splitNumbers[val-1])/100 * Number(splitNumbers[val+1])
-      console.log(sum)
       splitNumbers.splice(splitNumbers.indexOf('%x') - 1,3)
-      console.log(splitNumbers[val - 1] = `${sum}`)
+      splitNumbers[val - 1] = `${sum}`
     }
-    console.log(splitNumbers)
   
     let total = ''
     
@@ -55,7 +52,15 @@ export default function App() {
       case '+/-':
         return
     }
+  
+    if(['+','-','x','/','%'].includes(buttonPressed) && currentNumber.length === 0){
+      return
+    }
 
+    if(['+','-','x','/','%'].includes(lastButton) && ['+','-','x','/','%'].includes(buttonPressed)){
+      return
+    }
+  
     if(['+','-','x','/','%'].includes(buttonPressed)){
       if(buttonPressed === '%'){
         setCurrentNumber(currentNumber + " " + buttonPressed + "x ")
@@ -65,9 +70,8 @@ export default function App() {
       setLastButton(buttonPressed)
       return
     }
-    setLastButton(buttonPressed)
     setCurrentNumber(currentNumber + buttonPressed)
-    
+    setLastButton(buttonPressed)
   }
 
 
