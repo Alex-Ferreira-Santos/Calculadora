@@ -46,6 +46,9 @@ export default function App() {
         setCurrentNumber("") 
         return
       case '=':
+        if(['+','-','x','/','%'].includes(lastButton)){
+          return
+        }
         setLastNumber(currentNumber + " = ")
         calculator()
         return
@@ -53,6 +56,9 @@ export default function App() {
         if(currentNumber.length != 0){
           const splitNumbers = currentNumber.split(' ')
           let expression = ''
+          if(splitNumbers[splitNumbers.length - 1].length === 0){
+            return
+          }
           if(splitNumbers.length-1 >= 0){
             splitNumbers[splitNumbers.length - 1] = ` ${-splitNumbers[splitNumbers.length - 1]}` 
           }else{
@@ -70,7 +76,6 @@ export default function App() {
     if(['+','-','x','/','%'].includes(buttonPressed) && currentNumber.length === 0){
       return
     }
-
     if(['+','-','x','/','%'].includes(lastButton) && ['+','-','x','/','%'].includes(buttonPressed)){
       return
     }
