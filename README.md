@@ -1,3 +1,5 @@
 # Calculadora
 
-O projeto está com erros e precisa ser corrigido
+Uma calculadora feita em react native.
+
+Esse projeto foi para corrigir os erros de uma calculadora
